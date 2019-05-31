@@ -1,0 +1,41 @@
+.wrapper {
+    display: grid;
+    // grid-gap: 10px;
+    grid-template-columns: 1fr 1000px 1fr;
+    grid-template-areas:
+        "... header ..."
+        "sidebar content settings"
+        "... footer ..."
+}
+
+.header {
+    color: blue;
+    grid-area: header;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+.sidebar {
+    // background-color: #ddd;
+    grid-area: sidebar;
+}
+
+.content {
+    // color: red;
+    grid-area: content;
+    padding: 10px;
+}
+
+.settings {
+    // background-color: #777;
+}
+
+.footer {
+    color: white;
+    background-color: black;
+    grid-area: footer;
+    padding: 10px;
+    text-align: center;
+
+}
+
