@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon'
+import {FormsModule} from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +20,9 @@ import { TomatoCaseComponent } from './tomato-case/tomato-case.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TimerComponent } from './timer/timer.component';
 
+import { TasksService } from './tasks.service';
+import { CustomDatePipe } from './custom-date.pipe';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,7 +31,8 @@ import { TimerComponent } from './timer/timer.component';
         ButtonBarComponent,
         TomatoCaseComponent,
         SettingsComponent,
-        TimerComponent
+        TimerComponent,
+        CustomDatePipe
     ],
     imports: [
         BrowserModule,
@@ -31,8 +40,13 @@ import { TimerComponent } from './timer/timer.component';
         MatGridListModule,
         BrowserAnimationsModule,
         MatButtonModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        MatTableModule,
     ],
-    providers: [],
+    providers: [TasksService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,66 @@
 <div>
-    <app-timer seconds="70"></app-timer>
-    <button mat-raised-button>Pomodoro</button>
+    <div class="action-buttons">
+
+        <span>
+            <mat-form-field>
+                <input matInput [(ngModel)]="newTaskTitle" (keyup.enter)="newPomodoro()" placeholder="Current Task Name">
+            </mat-form-field>
+        </span>
+        &nbsp;
+
+        <span *ngFor="let project of tasksService.projects | async">
+            <button mat-raised-button [style.background-color]="project.color" [style.color]="'white'" (click)="newPomodoro()">
+                {{project.title}}
+            </button>
+        </span>
+    
+        <button mat-raised-button (click)="newShortBreak()" >Short Break</button>
+        <button mat-raised-button (click)="newLongBreak()" >Long Break</button>
+    </div>
+
+    <div class="current-task" *ngIf="tasksService.current">
+        <span class="current-task-title">
+            {{ tasksService.current.title }}
+        </span>
+        <app-timer seconds="70"></app-timer>
+        <span>
+            <button mat-raised-button (click)="doneCurrent()">Stop</button>
+        </span>
+    </div>
+
+    <h3>Task History</h3>
+    <div class="task-history">
+        <table>
+            <tr *ngFor="let task of tasksService.tasks | async">
+                <span *ngIf="!task.edit">
+                    <td> 
+                        {{ task.title}} 
+                        <button mat-icon-button (click)="startEditTask(task.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                    <td> {{task.start | customDate}} </td>
+                    <td>
+                        {{ tasksService.formatDuration(task.duration) }}
+                    </td>
+                    <td> 
+                        <button mat-icon-button (click)="deleteTask(task.id)">
+                            <mat-icon>delete</mat-icon>     
+                        </button>
+                    </td>
+                </span>
+                <span *ngIf="task.edit">
+                    <td>
+                        <mat-form-field>
+                            <input matInput (keyup.enter)="endEditTask(task.id)" [(ngModel)]="task.title">
+                        </mat-form-field>
+                        <button mat-icon-button (click)="endEditTask(task.id)">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                    </td>
+                </span>
+            </tr>
+        </table>
+        <button mat-raised-button (click)="clearAllTasks()">Clear All</button>
+    </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { timer } from 'rxjs';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-timer',
@@ -8,40 +9,41 @@ import { timer } from 'rxjs';
 })
 export class TimerComponent implements OnInit {
 
-  @Input("seconds") seconds: number;
-  current: number
+  // @Input("seconds") seconds: number;
+  // current: string
 
-  timer$ = timer(1000, 1000);
-  timerSubscription = null;
+  // timer$ = timer(1000, 1000);
+  // timerSubscription = null;
 
-  constructor() {
+  constructor(private tasksService: TasksService) {
 
   }
 
-  tick() {
-    if (this.current > 0) {
-      this.current--;
-    }
-  }
+  // tick() {
+  //   let task = this.tasksService.current;
+  //   if (!task) {
+  //     return;
+  //   }
+  //   this.current = this.timeLeft();
+  // }
 
   ngOnInit() {
-    this.current = this.seconds;
-    this.timerSubscription = this.timer$.subscribe(() => this.tick());
+  //   //this.current = this.seconds;
+  //   this.timerSubscription = this.timer$.subscribe(() => this.tick());
   }
 
-  ngOnDestroy() {
-    this.timerSubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.timerSubscription.unsubscribe();
+  // }
 
-  timeLeft(): string {
-    let minutes = Math.floor(this.current / 60);
-    let seconds = this.current - 60 * minutes;
-    return `${this.padDuration(minutes)}:${this.padDuration(seconds)}`;
-  }
+  // private timeLeft(): string {
+  //   let task = this.tasksService.current;
+  //   if (!task) {
+  //     return this.formatDuration(0);
+  //   }
+  //   // Delta in seconds
+  //   let delta = Math.floor((task.start.getTime() - Date.now()) / 1000 + task.duration);
+  //   return this.formatDuration(delta);
+  // }
 
-  // Turns 7 into "07"
-  padDuration(n: number): string {
-    let durationStr = "0" + n;
-    return durationStr.substr(-2);
-  }
 }
